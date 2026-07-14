@@ -47,8 +47,10 @@
     heroEl.innerHTML = `
       <div class="charm-icon">${iconHtml}</div>
       <div class="studio-hero-info">
-        <h1>${studio[F.NAME]}${mediaIconsHtml(studio, F)}</h1>
-
+        <div class="title-row">
+          <h1>${studio[F.NAME]}</h1>
+          ${mediaIconsHtml(studio, F)}
+        </div>
         <div class="badge-row">
           <span class="badge ${status.cls}">${status.label}</span>
           ${studio[F.FACTORY] ? `<span class="badge">${studio[F.FACTORY]}</span>` : ''}

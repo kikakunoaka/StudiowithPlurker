@@ -76,7 +76,7 @@
 
     const studioReviews = reviews.filter((r) => r[RF.STUDIO_NAME] === studioName);
 
-    reviewSectionTitle.innerHTML = `體驗回報 <span class="count">${studioReviews.length} 則</span>`;
+    reviewSectionTitle.innerHTML = `體驗回饋 <span class="count">${studioReviews.length} 則</span>`;
 
     if (studioReviews.length) {
       const scores = studioReviews.map((r) => parseFloat(r[RF.SCORE])).filter((n) => !Number.isNaN(n));
@@ -138,7 +138,7 @@
         renderReviewCards(sortReviews(studioReviews, 'time_desc'));
       }
     } else {
-      renderState(reviewListEl, '目前還沒有體驗回報。', false);
+      renderState(reviewListEl, '目前還沒有體驗回饋。', false);
       reviewListEl.querySelector('.spinner')?.remove();
     }
   } catch (err) {

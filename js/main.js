@@ -37,34 +37,13 @@
   }
 
   nameCol = cols[0];
-  iconCol = typeof findColumn === 'function' ? findColumn(cols, CONFIG.iconColumnName) : '';
-
-  // ---- 強化防呆的體驗評價欄位尋找邏輯 ----
-  // 優先嘗試使用 pickRatingColumn，若沒定義或失效，則自動模糊比對含有「評價」、「分數」、「評分」或「Rating」字眼的欄位
-  if (typeof pickRatingColumn === 'function') {
-    ratingCol = pickRatingColumn(cols, rows);
-  } else {
-    // 自動模糊比對
-    ratingCol = cols.find(c => {
-      const colName = String(c || '').trim();
-      return colName.includes('評價') || 
-             colName.includes('分數') || 
-             colName.includes('評分') || 
-             colName.includes('rating') || 
-             colName.includes('Rating');
-    }) || '';
-  }
-
+  iconCol = findColumn(cols, CONFIG.iconColumnName);
+  // 體驗評價：優先直接抓 CONFIG.ratingColumnLetter 指定的欄位位置（預設 H 欄），
+  // 不管標題文字寫什麼；抓不到資料才退而比對標題文字
+  ratingCol = pickRatingColumn(cols, rows);
   // 卡片顯示「工作室列表」的全部欄位內容，僅排除名稱／ICON／體驗評價
-  // 增加 .trim() 防止因為試算表前後有多餘空白而導致排除失敗
-  tagCols = cols.filter((c) => {
-    const cleanCol = String(c || '').trim();
-    const cleanName = String(nameCol || '').trim();
-    const cleanIcon = String(iconCol || '').trim();
-    const cleanRating = String(ratingCol || '').trim();
-    
-    return cleanCol !== cleanName && cleanCol !== cleanIcon && cleanCol !== cleanRating;
-  });
+  // （名稱是標題、ICON 顯示成圖片、體驗評價顯示成右上角勳章，三者都不當一般 TAG）
+  tagCols = cols.filter((c) => c !== nameCol && c !== iconCol && c !== ratingCol);
 
   render();
 

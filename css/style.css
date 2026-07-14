@@ -276,8 +276,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
 /* 體驗評價勳章 — 固定卡片右上角，圓形獎牌樣式 */
 .card .rating-badge {
   position: absolute;
-  top: -12px;
-  right: -10px;
+  top: 12px;
+  right: 10 px;
   min-width: 46px;
   height: 46px;
   padding: 0 6px;
@@ -289,9 +289,8 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   font-weight: 900;
   font-size: 1.15rem;
   color: #fff;
-  background: radial-gradient(circle at 35% 30%, #f0cd82, var(--gold-dark));
+  background: radial-gradient(circle at 35% 30%, #f0cd82);
   border: 2.5px solid var(--paper-card);
-  box-shadow: 0 3px 0 rgba(38,52,74,0.18), 0 8px 16px -8px rgba(38,52,74,0.55);
   z-index: 2;
   line-height: 1;
 }

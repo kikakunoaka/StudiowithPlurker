@@ -1,46 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>噗浪周邊客製工作室</title>
-<link rel="stylesheet" href="css/style.css" />
+<meta name="description" content="噗浪周邊客製工作室資訊整理與體驗回報，方便委託前查詢工作室營運狀況、平台、工廠與過往評價。">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
-  <div class="inner">
-    <div class="brand">噗浪周邊客製工作室<small>CUSTOM STUDIO REVIEW CATALOG</small></div>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="charm-dot"></span>
+      <span>噗浪周邊客製工作室<small>CUSTOM STUDIO in PLURK</small></span>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-back" href="https://www.plurk.com/p/3iwsb1k1ce" target="_blank" rel="noopener">偷偷說本舖</a>
+      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回報</a>
+    </nav>
   </div>
 </header>
 
-<main>
-  <details class="changelog" id="changelogBox">
-    <summary>📋 更新日誌</summary>
-    <div class="changelog-body" id="changelogBody">
-      <div class="loading">載入中…</div>
-    </div>
-  </details>
+<main class="wrap">
+  <section class="hero">
+    <p>噗浪周邊客製工作室資訊整理與體驗回報，方便委託前查詢工作室營運狀況、平台、工廠與過往評價。</p>
 
-  <div class="filter-panel">
-    <div class="search-row">
-      <input type="search" id="searchInput" placeholder="搜尋工作室名稱…" autocomplete="off" />
-      <button class="clear-btn" id="clearBtn">清除篩選</button>
-    </div>
-    <div class="tag-groups" id="tagGroups">
-      <div class="loading">分類載入中…</div>
-    </div>
-  </div>
+    <details class="changelog-details">
+      <summary class="changelog-summary">
+        <span class="changelog-dot"></span>
+        <span>更新日誌</span>
+        <span class="changelog-arrow">🔽</span>
+      </summary>
+      <div class="changelog-content" id="changelogContent">
+        <div class="spinner" style="width:20px; height:20px; margin:10px auto;"></div>
+        <p style="text-align:center; font-size:0.85rem; color:var(--ink-soft);">日誌載入中...</p>
+      </div>
+    </details>
 
-  <div id="content">
-    <div class="loading">資料載入中，請稍候…</div>
-  </div>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="搜尋工作室名稱或噗浪帳號…">
+    </div>
+  </section>
+
+  <section class="filters">
+    <div class="filter-group">
+      <label>營運狀況</label>
+      <select id="filterStatus"><option value="">全部狀態</option></select>
+    </div>
+    <div class="filter-group">
+      <label>工廠</label>
+      <select id="filterFactory"><option value="">全部工廠</option></select>
+    </div>
+    <div class="filter-group">
+      <label>客製項目</label>
+      <select id="filterItem"><option value="">全部項目</option></select>
+    </div>
+  </section>
+
+  <p class="result-count" id="resultCount"></p>
+
+  <section class="studio-grid" id="studioGrid" aria-live="polite"></section>
 </main>
 
-<footer class="site-footer">資料同步自 Google 試算表 · 內容以試算表為準</footer>
+<footer class="site-footer">
+  <div class="wrap">
+    資料整理自社群共同回報，僅供參考，實際委託請自行評估風險。<br>
+    資料來源：<a href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?usp=sharing" target="_blank" rel="noopener">Google 試算表</a>
+  </div>
+</footer>
 
-<script src="js/config.js"></script>
-<script src="js/sheets.js"></script>
-<script src="js/main.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/gsheet.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

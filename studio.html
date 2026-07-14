@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>工作室介紹｜噗浪周邊客製工作室</title>
-<link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工作室詳情｜噗浪周邊客製工作室</title>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
 <header class="site-header">
-  <div class="inner">
-    <div class="brand">噗浪周邊客製工作室<small>CUSTOM STUDIO REVIEW CATALOG</small></div>
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="charm-dot"></span>
+      <span>噗浪周邊客製工作室<small>CUSTOM STUDIO in PLURK</small></span>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-back" href="https://www.plurk.com/p/3iwsb1k1ce" target="_blank" rel="noopener">偷偷說本舖</a>
+      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回報</a>
+      <a class="nav-back btn-list" href="index.html">← 回列表</a>
+    </nav>
   </div>
 </header>
 
-<main>
-  <a class="back-link" href="index.html">← 回主頁</a>
-  <div id="content">
-    <div class="loading">資料載入中，請稍候…</div>
-  </div>
+<main class="wrap">
+  <div class="studio-hero" id="studioHero"></div>
+
+  <div class="info-grid" id="infoGrid"></div>
+
+  <h2 class="section-title" id="reviewSectionTitle">體驗回報</h2>
+  <div class="score-summary" id="scoreSummary"></div>
+  <div class="review-list" id="reviewList" aria-live="polite"></div>
 </main>
 
-<footer class="site-footer">資料同步自 Google 試算表 · 內容以試算表為準</footer>
+<footer class="site-footer">
+  <div class="wrap">
+    資料整理自社群共同回報，僅供參考，實際委託請自行評估風險。<br>
+    資料來源：<a href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?usp=sharing" target="_blank" rel="noopener">Google 試算表</a>
+  </div>
+</footer>
 
-<script src="js/config.js"></script>
-<script src="js/sheets.js"></script>
-<script src="js/studio.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/gsheet.js"></script>
+<script src="assets/js/studio.js"></script>
 </body>
 </html>

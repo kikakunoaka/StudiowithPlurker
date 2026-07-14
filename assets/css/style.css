@@ -303,6 +303,7 @@ button, input, select{ font-family: inherit; }
   overflow: hidden;
   width: 100%;
   max-width: min(90%, 640px);
+  text-align: left!important;
 }
 .changelog-summary{
   display: flex;

@@ -88,16 +88,20 @@
       return true;
     });
 
-    // 排序：預設「評價多→寡」（依回報則數），另可切換「評價高→低」（依平均分數）
-    // 沒有任何體驗回報的工作室評分視為 0，排序時會排在後面
-    const sortMode = sortSel ? sortSel.value : 'count_desc';
+    // 排序：預設「評價新→舊」（依最新一則體驗回報的時間戳記），
+    // 另可切換「評價多→寡」（依回報則數）或「評價高→低」（依平均分數）。
+    // 完全沒有體驗回報的工作室，三種排序都視為 0，會排在最後面。
+    const sortMode = sortSel ? sortSel.value : 'latest_desc';
     filtered.sort((a, b) => {
-      const scoreA = scoreMap[a[F.NAME]] || { avg: 0, count: 0 };
-      const scoreB = scoreMap[b[F.NAME]] || { avg: 0, count: 0 };
+      const scoreA = scoreMap[a[F.NAME]] || { avg: 0, count: 0, latest: 0 };
+      const scoreB = scoreMap[b[F.NAME]] || { avg: 0, count: 0, latest: 0 };
       if (sortMode === 'avg_desc') {
         return (parseFloat(scoreB.avg) || 0) - (parseFloat(scoreA.avg) || 0);
       }
-      return (scoreB.count || 0) - (scoreA.count || 0);
+      if (sortMode === 'count_desc') {
+        return (scoreB.count || 0) - (scoreA.count || 0);
+      }
+      return (scoreB.latest || 0) - (scoreA.latest || 0);
     });
 
     countEl.textContent = `共找到 ${filtered.length} 間工作室`;
@@ -147,9 +151,11 @@
       const name = r[RF.STUDIO_NAME];
       const score = parseFloat(r[RF.SCORE]);
       if (!name || Number.isNaN(score)) return;
-      if (!scoreMap[name]) scoreMap[name] = { total: 0, count: 0 };
+      if (!scoreMap[name]) scoreMap[name] = { total: 0, count: 0, latest: 0 };
       scoreMap[name].total += score;
       scoreMap[name].count += 1;
+      const ts = safeDateValue(r[RF.TIMESTAMP]);
+      if (ts > scoreMap[name].latest) scoreMap[name].latest = ts;
     });
     Object.keys(scoreMap).forEach((name) => {
       scoreMap[name].avg = (scoreMap[name].total / scoreMap[name].count).toFixed(1);

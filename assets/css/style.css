@@ -307,7 +307,6 @@ button, input, select{ font-family: inherit; }
 .changelog-summary{
   display: flex;
   align-items: center;
-  justify-content: center;
   padding: 13px 18px;
   font-weight: 600;
   cursor: pointer;

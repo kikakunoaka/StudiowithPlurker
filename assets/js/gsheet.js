@@ -112,9 +112,43 @@ function isImageUrl(url) {
   return /\.(jpe?g|png|gif|webp|bmp|svg)$/i.test(clean);
 }
 
-/** 安全地解析日期字串以供排序用；解析失敗時回傳 0（視為最舊） */
+/**
+ * 安全地解析日期字串以供排序用；解析失敗時回傳 0（視為最舊）。
+ * Google 表單寫入試算表的時間戳記，常見格式是「2024/1/15 下午 3:45:30」
+ * 這種帶中文上午/下午的格式，瀏覽器內建的 Date.parse 完全看不懂會直接失敗，
+ * 導致排序功能「看起來沒作用」（全部都被當成同一個時間）。
+ * 這裡先試著手動解析這類格式，解析不了才 fallback 回 Date.parse。
+ */
 function safeDateValue(str) {
-  const t = Date.parse(str);
+  if (!str) return 0;
+  const s = String(str).trim();
+
+  // 格式一：2024/1/15 下午 3:45:30 或 2024/1/15 下午3:45:30（年/月/日 + 上午或下午 + 時:分:秒）
+  // 也相容用 - 或 . 分隔日期的寫法，例如 2024-1-15、2024.1.15
+  const zhMatch = s.match(
+    /^(\d{4})[\/\-.](\d{1,2})[\/\-.](\d{1,2})\s+(上午|下午)\s*(\d{1,2}):(\d{2})(?::(\d{2}))?$/
+  );
+  if (zhMatch) {
+    const [, y, mo, d, ampm, hRaw, mi, se] = zhMatch;
+    let h = parseInt(hRaw, 10);
+    if (ampm === '下午' && h < 12) h += 12;
+    if (ampm === '上午' && h === 12) h = 0;
+    const t = new Date(+y, +mo - 1, +d, h, +mi, +(se || 0)).getTime();
+    return Number.isNaN(t) ? 0 : t;
+  }
+
+  // 格式二：一般 24 小時制，但用 . 分隔日期（Date.parse 對這種格式常常解析失敗）
+  const dotMatch = s.match(
+    /^(\d{4})[.](\d{1,2})[.](\d{1,2})(?:\s+(\d{1,2}):(\d{2})(?::(\d{2}))?)?$/
+  );
+  if (dotMatch) {
+    const [, y, mo, d, h, mi, se] = dotMatch;
+    const t = new Date(+y, +mo - 1, +d, +(h || 0), +(mi || 0), +(se || 0)).getTime();
+    return Number.isNaN(t) ? 0 : t;
+  }
+
+  // 其餘格式交給瀏覽器內建解析（例如標準 ISO 格式、2024/1/15 15:45:30 沒有中文上下午的情況）
+  const t = Date.parse(s);
   return Number.isNaN(t) ? 0 : t;
 }
 

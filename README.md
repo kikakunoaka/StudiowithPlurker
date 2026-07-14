@@ -2,6 +2,13 @@
 
 純前端網站（HTML/CSS/JS），資料即時從你的 Google 試算表讀取，不需要後端、不需要 API Key，可直接部署在 GitHub Pages。
 
+## 最新調整（第七輪）
+
+- **新增網站 Favicon**：新增 `assets/img/icon.svg`（粉色圓底 + 白色愛心，跟網站主色系一致），`index.html` 與 `studio.html` 的 `<head>` 都加了 `<link rel="icon" type="image/svg+xml" href="assets/img/icon.svg">`，瀏覽器分頁標題旁邊就會顯示這個圖示。
+- **噗浪圖示沒變粉紅色的排查**：這邊重新確認過 `assets/img/plurk.svg`，檔案內容是 `fill="#F0577E"`（粉紅），本身沒有問題。如果你部署後看到的還是黑色，通常是以下兩種情況：
+  1. **repo 裡的檔案沒被換掉**：確認 GitHub 上 `assets/img/plurk.svg` 這個檔案的內容有沒有真的被這次的新版覆蓋過去（用 GitHub 網頁介面點開檔案直接看內容，開頭應該是 `<svg fill="#F0577E" ...>`）。
+  2. **瀏覽器 / GitHub Pages 快取到舊檔**：SVG 圖片很容易被瀏覽器快取，就算 repo 裡的檔案已經換成新的，瀏覽器可能還在用舊版黑色圖示。可以試著強制重新整理（Windows/Linux：Ctrl+Shift+R；Mac：Cmd+Shift+R），或是換無痕視窗開網站確認。
+
 ## 最新調整（第六輪）
 
 - **體驗回報最多可以放 3 張返圖縮圖**：試算表「體驗回報」分頁的返圖欄位改成三欄：`返圖網址(1)`、`返圖網址(2)`、`返圖網址(3)`（表頭文字要完全一致），已同步更新 `config.js` 的 `REVIEW_FIELDS.IMAGE_URLS`（是一個陣列，依序對應 1→2→3，跟這三欄在試算表裡實際排第幾欄無關）。詳情頁會把有填的欄位都做成縮圖並排顯示（最多 3 張），縮圖群組整體寬度上限 500px，點擊縮圖會在新分頁開啟原始網址。某一欄留空就不會顯示對應縮圖。
@@ -82,6 +89,7 @@ studio-site/
 ├── assets/
 │   ├── css/style.css        # 所有樣式
 │   ├── img/
+│   │   ├── icon.svg           # 網站 Favicon（粉色圓底 + 白色愛心）
 │   │   ├── plurk.svg         # 噗浪帳號圖示（粉色）
 │   │   ├── homepage.svg       # 官方網站圖示（粉色）
 │   │   └── email.svg          # E-mail 圖示（粉色）

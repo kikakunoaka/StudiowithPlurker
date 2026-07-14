@@ -63,7 +63,6 @@
     const infoCards = [
       { label: '委託方式', value: commasToDunhao(studio[F.ORDER_TYPE]) },
       { label: '客製項目', value: splitTags(studio[F.ITEMS]).join('、') },
-      { label: '備註 / 評價', value: studio[F.NOTE] },
     ].filter((item) => item.value);
 
     infoEl.innerHTML = infoCards
@@ -106,7 +105,7 @@
             ${r[RF.SCORE] ? `<span class="review-score">⭐ ${r[RF.SCORE]}</span>` : ''}
           </div>
           <div class="review-meta">
-            ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ 體驗者：${r[RF.REVIEWER]}` : ''}
+            ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ ${r[RF.REVIEWER]}` : ''}
           </div>
           <div class="review-comment">${formatTextWithLinks(r[RF.COMMENT])}</div>
           ${r[RF.NOTE] ? `<div class="review-meta" style="margin-top:8px;">備註：${formatTextWithLinks(r[RF.NOTE])}</div>` : ''}

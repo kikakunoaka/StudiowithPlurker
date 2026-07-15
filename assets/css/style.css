@@ -79,7 +79,7 @@ button, input, select{ font-family: inherit; }
   display: inline-block;
   font-size: .7em;
   font-weight: 600;
-  vertical-align: bottom;   /* 改這裡：貼齊主標題那一行的最底部 */
+  vertical-align: 2px;
 }
 
 

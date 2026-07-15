@@ -30,7 +30,7 @@
 
   function studioCard(s) {
     const status = CONFIG.STATUS_STYLE[s[F.STATUS]] || CONFIG.STATUS_STYLE['未知'];
-    const items = splitTags(s[F.ITEMS]).slice(0, 4);
+    const items = splitTags(s[F.ITEMS]);
     const score = scoreMap[s[F.NAME]];
     const iconHtml = s[F.ICON]
       ? `<img src="${s[F.ICON]}" alt="${s[F.NAME]} icon" loading="lazy" onerror="this.parentElement.textContent='${(s[F.NAME] || '?').slice(0,1)}'">`

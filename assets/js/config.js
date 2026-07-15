@@ -31,7 +31,7 @@ const CONFIG = {
   REVIEW_FIELDS: {
     TIMESTAMP: '時間戳記',
     REVIEWER: '暱稱',
-    STUDIO_NAME: '工作室',
+    STUDIO_NAME: '委印工作室',
     SCORE: '評價分數',
     ORDER_ITEM: '委印項目',
     COMMENT: '經驗分享',

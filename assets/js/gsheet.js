@@ -102,6 +102,20 @@ function formatTextWithLinks(text) {
 }
 
 /**
+ * 把「同一個儲存格內填多個網址」的字串拆成網址陣列。
+ * 支援換行（Google 試算表儲存格內 Alt+Enter 換行）、逗號、頓號、空白等分隔方式，
+ * 並且只保留看起來像 http(s) 網址的項目，避免誤拆到網址內的斜線或其他符號。
+ */
+function splitMultiUrls(str) {
+  if (!str) return [];
+  return String(str)
+    .split(/[\n,，、\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((s) => /^https?:\/\//i.test(s));
+}
+
+/**
  * 純前端沒辦法讀取遠端檔案的實際 Content-Type，只能靠網址副檔名判斷是不是圖片。
  * 判斷得到的副檔名符合常見圖片格式就當作圖片顯示縮圖，判斷不到（例如雲端硬碟分享連結、
  * 沒有副檔名的短網址等）就顯示成連結按鈕，避免圖片破圖或很久讀不出來。

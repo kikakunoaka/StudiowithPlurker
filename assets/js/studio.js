@@ -98,9 +98,7 @@
 
       function renderReviewCards(list) {
         reviewListEl.innerHTML = list.map((r) => {
-          const imageUrls = (RF.IMAGE_URLS || [])
-            .map((field) => r[field])
-            .filter(Boolean);
+          const imageUrls = splitMultiUrls(r[RF.IMAGE_URLS]);
           const imagesHtml = imageUrls.length
             ? `<div class="review-images">
                 ${imageUrls.map((url) => (

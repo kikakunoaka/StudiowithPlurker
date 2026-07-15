@@ -182,30 +182,54 @@ function websiteUrl(url) {
 }
 
 /**
- * 產生「噗浪帳號 / 官方網站 / E-mail」共用的媒體圖示列。
- * 只有欄位有值的項目才會顯示對應圖示，三個都沒有就回傳空字串。
+ * 依「其他平台」欄位的網址，自動判斷要顯示哪個平台圖示。
+ * 判斷不出來（例如不認得的網域、或不是完整網址）就一律 fallback 成 media-store。
+ */
+function detectOtherPlatformIcon(url) {
+  const s = String(url).toLowerCase();
+  if (/discord(\.gg|\.com|app\.com)/.test(s)) return 'discord';
+  if (/facebook\.com|fb\.me|fb\.com/.test(s)) return 'facebook';
+  if (/instagram\.com/.test(s)) return 'instagram';
+  if (/line\.me|lin\.ee/.test(s)) return 'line';
+  if (/threads\.net/.test(s)) return 'threads';
+  if (/twitter\.com|x\.com/.test(s)) return 'twitter';
+  return 'store';
+}
+
+/**
+ * 產生「噗浪帳號 / 官方網站 / 其他平台 / E-mail」共用的媒體圖示列。
+ * 只有欄位有值的項目才會顯示對應圖示，全部都沒有就回傳空字串。
  * iconBase 預設抓 assets/img/ 底下的圖示，index.html 與 studio.html 都放在根目錄，路徑相同。
+ * 圖示檔名統一為 media-XXX.svg（例如 media-plurk.svg、media-homepage.svg）。
  */
 function mediaIconsHtml(studio, F, iconBase = 'assets/img') {
   const items = [];
   if (studio[F.PLURK]) {
     items.push({
       href: plurkProfileUrl(studio[F.PLURK]),
-      icon: `${iconBase}/plurk.svg`,
+      icon: `${iconBase}/media-plurk.svg`,
       label: `噗浪：${studio[F.PLURK]}`,
     });
   }
   if (studio[F.WEBSITE]) {
     items.push({
       href: websiteUrl(studio[F.WEBSITE]),
-      icon: `${iconBase}/homepage.svg`,
+      icon: `${iconBase}/media-homepage.svg`,
       label: `官方網站：${studio[F.WEBSITE]}`,
+    });
+  }
+  if (F.OTHER_PLATFORM && studio[F.OTHER_PLATFORM]) {
+    const platformIcon = detectOtherPlatformIcon(studio[F.OTHER_PLATFORM]);
+    items.push({
+      href: websiteUrl(studio[F.OTHER_PLATFORM]),
+      icon: `${iconBase}/media-${platformIcon}.svg`,
+      label: `其他平台：${studio[F.OTHER_PLATFORM]}`,
     });
   }
   if (studio[F.EMAIL]) {
     items.push({
       href: `mailto:${String(studio[F.EMAIL]).trim()}`,
-      icon: `${iconBase}/email.svg`,
+      icon: `${iconBase}/media-email.svg`,
       label: `E-mail：${studio[F.EMAIL]}`,
     });
   }

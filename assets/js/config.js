@@ -17,6 +17,7 @@ const CONFIG = {
     NAME: '工作室',
     PLURK: '噗浪帳號',
     WEBSITE: '官方網站',
+    OTHER_PLATFORM: '其他平台',
     EMAIL: 'E-Mail',
     ICON: 'ICON',
     STATUS: '營運狀態',

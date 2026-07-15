@@ -191,7 +191,7 @@ function detectOtherPlatformIcon(url) {
   if (/facebook\.com|fb\.me|fb\.com/.test(s)) return 'facebook';
   if (/instagram\.com/.test(s)) return 'instagram';
   if (/line\.me|lin\.ee/.test(s)) return 'line';
-  if (/threads\.net/.test(s)) return 'threads';
+  if (/threads\.com/.test(s)) return 'threads';
   if (/twitter\.com|x\.com/.test(s)) return 'twitter';
   return 'store';
 }

@@ -12,6 +12,76 @@
   const reviewListEl = document.getElementById('reviewList');
   const reviewSortSel = document.getElementById('reviewSort');
 
+  // ---- 返圖 Lightbox ----
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  const lightboxCount = document.getElementById('lightboxCount');
+
+  let lightboxUrls = [];
+  let lightboxIndex = 0;
+
+  function updateLightboxView() {
+    lightboxImg.src = lightboxUrls[lightboxIndex];
+    lightboxCount.textContent = lightboxUrls.length > 1 ? `${lightboxIndex + 1} / ${lightboxUrls.length}` : '';
+    const multi = lightboxUrls.length > 1;
+    lightboxPrev.hidden = !multi;
+    lightboxNext.hidden = !multi;
+  }
+
+  function openLightbox(urls, startIndex) {
+    if (!urls.length) return;
+    lightboxUrls = urls;
+    lightboxIndex = startIndex;
+    updateLightboxView();
+    lightboxOverlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightboxOverlay.classList.remove('is-open');
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  function showPrev() {
+    lightboxIndex = (lightboxIndex - 1 + lightboxUrls.length) % lightboxUrls.length;
+    updateLightboxView();
+  }
+
+  function showNext() {
+    lightboxIndex = (lightboxIndex + 1) % lightboxUrls.length;
+    updateLightboxView();
+  }
+
+  if (lightboxOverlay) {
+    // 點縮圖時用事件代理攔截，改開 lightbox 而不是跳轉/開新分頁
+    reviewListEl.addEventListener('click', (e) => {
+      const link = e.target.closest('.review-image-link');
+      if (!link) return;
+      e.preventDefault();
+      const group = link.dataset.lightboxGroup;
+      const urls = [...reviewListEl.querySelectorAll(`.review-image-link[data-lightbox-group="${group}"]`)]
+        .map((a) => a.getAttribute('href'));
+      openLightbox(urls, parseInt(link.dataset.lightboxIndex, 10) || 0);
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrev);
+    lightboxNext.addEventListener('click', showNext);
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightboxOverlay.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  }
+
   function renderState(el, msg, isError) {
     el.innerHTML = `<div class="state-msg ${isError ? 'error' : ''}">
       ${isError ? '' : '<div class="spinner"></div>'}
@@ -97,13 +167,13 @@
       }
 
       function renderReviewCards(list) {
-        reviewListEl.innerHTML = list.map((r) => {
+        reviewListEl.innerHTML = list.map((r, cardIdx) => {
           const imageUrls = splitMultiUrls(r[RF.IMAGE_URLS]);
           const imagesHtml = imageUrls.length
             ? `<div class="review-images">
-                ${imageUrls.map((url) => (
+                ${imageUrls.map((url, imgIdx) => (
                   isImageUrl(url)
-                    ? `<a class="review-image-link" href="${url}" target="_blank" rel="noopener">
+                    ? `<a class="review-image-link" href="${url}" data-lightbox-group="review-${cardIdx}" data-lightbox-index="${imgIdx}">
                         <img class="review-thumb" src="${url}" alt="${r[RF.STUDIO_NAME] || ''} 返圖" loading="lazy">
                       </a>`
                     : `<a class="review-link-btn" href="${url}" target="_blank" rel="noopener">返圖連結</a>`

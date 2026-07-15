@@ -88,9 +88,9 @@
       return true;
     });
 
-    // 排序：預設「評價新→舊」（依最新一則體驗回報的時間戳記），
+    // 排序：預設「評價新→舊」（依最新一則經驗回報的時間戳記），
     // 另可切換「評價多→寡」（依回報則數）或「評價高→低」（依平均分數）。
-    // 完全沒有體驗回報的工作室，三種排序都視為 0，會排在最後面。
+    // 完全沒有經驗回報的工作室，三種排序都視為 0，會排在最後面。
     const sortMode = sortSel ? sortSel.value : 'latest_desc';
     filtered.sort((a, b) => {
       const scoreA = scoreMap[a[F.NAME]] || { avg: 0, count: 0, latest: 0 };

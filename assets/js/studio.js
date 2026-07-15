@@ -76,16 +76,16 @@
 
     const studioReviews = reviews.filter((r) => r[RF.STUDIO_NAME] === studioName);
 
-    reviewSectionTitle.innerHTML = `體驗回饋 <span class="count">${studioReviews.length} 則</span>`;
+    reviewSectionTitle.innerHTML = `經驗分享 <span class="count">${studioReviews.length} 則</span>`;
 
     if (studioReviews.length) {
       const scores = studioReviews.map((r) => parseFloat(r[RF.SCORE])).filter((n) => !Number.isNaN(n));
       if (scores.length) {
         const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-        scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・平均體驗分數</span>`;
+        scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・平均經驗分數</span>`;
       }
 
-      // 排序：預設「評價新→舊」（依時間戳記），另可切換「評價高→低」（依體驗分數）
+      // 排序：預設「評價新→舊」（依時間戳記），另可切換「評價高→低」（依經驗分數）
       function sortReviews(list, mode) {
         const sorted = [...list];
         if (mode === 'score_desc') {
@@ -138,7 +138,7 @@
         renderReviewCards(sortReviews(studioReviews, 'time_desc'));
       }
     } else {
-      renderState(reviewListEl, '目前還沒有體驗回饋。', false);
+      renderState(reviewListEl, '目前還沒有經驗分享。', false);
       reviewListEl.querySelector('.spinner')?.remove();
     }
   } catch (err) {

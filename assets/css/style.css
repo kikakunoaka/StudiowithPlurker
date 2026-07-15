@@ -269,7 +269,7 @@ button, input, select{ font-family: inherit; }
   color: var(--highlight); padding:3px 10px; border-radius:999px; font-weight:700;
 }
 
-/* 「體驗回報」標題與排序控制放在同一行，兩端對齊 */
+/* 「經驗回報」標題與排序控制放在同一行，兩端對齊 */
 .review-header{
   display:flex; align-items:center; justify-content:space-between;
   flex-wrap: wrap; gap: 10px 16px;
@@ -317,7 +317,7 @@ button, input, select{ font-family: inherit; }
 }
 .review-link-btn:hover{ background: var(--accent); color: var(--surface); }
 
-/* 體驗回報排序控制 */
+/* 經驗回報排序控制 */
 .review-controls{
   display:flex; align-items:center; gap:10px;
 }

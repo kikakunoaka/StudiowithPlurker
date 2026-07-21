@@ -4,7 +4,7 @@
 
 /* ===================== Design tokens ===================== */
 :root{
-  --bg: #FBF8F6;
+  --bg: #FBF6F7;
   --surface: #FFFFFF;
   --accent: #F0577E;
   --accent-soft: #FCE9EE;
@@ -313,7 +313,7 @@ button, input, select{ font-family: inherit; }
 .review-reply{
   margin-top: 12px;
   padding: 10px 14px;
-  background: var(--surface);
+  background: var(--bg);
   border-radius: var(--radius-md);
 }
 .review-reply-label{

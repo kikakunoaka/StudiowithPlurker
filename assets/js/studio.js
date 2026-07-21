@@ -192,6 +192,12 @@
             <div class="review-comment">${formatTextWithLinks(r[RF.COMMENT])}</div>
             ${r[RF.NOTE] ? `<div class="review-meta" style="margin-top:8px;">備註：${formatTextWithLinks(r[RF.NOTE])}</div>` : ''}
             ${imagesHtml}
+            ${r[RF.STUDIO_REPLY] ? `
+              <div class="review-reply">
+                <div class="review-reply-label">工作室回覆</div>
+                <div class="review-reply-content">${formatTextWithLinks(r[RF.STUDIO_REPLY])}</div>
+              </div>
+            ` : ''}
           </div>
         `;
         }).join('');

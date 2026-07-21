@@ -309,6 +309,22 @@ button, input, select{ font-family: inherit; }
 .review-image-link:hover .review-thumb{ opacity:.88; }
 .review-image-link{ cursor: zoom-in; }
 
+/* 工作室回覆：跟原本的經驗分享內容做視覺區隔，凸顯是工作室的官方回應 */
+.review-reply{
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--highlight-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--highlight);
+  border-radius: var(--radius-md);
+}
+.review-reply-label{
+  font-family: var(--font-mono); font-size:.74rem; font-weight:700;
+  color: var(--highlight); margin-bottom: 4px;
+}
+.review-reply-content{ white-space: pre-wrap; }
+.review-reply-content a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
+
 /* 返圖 Lightbox 彈窗 */
 .lightbox-overlay{
   display:none; position: fixed; inset:0; z-index: 999;

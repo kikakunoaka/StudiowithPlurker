@@ -41,6 +41,8 @@ const CONFIG = {
     // （在 Google 試算表儲存格內按 Alt+Enter，Mac 是 Option+Enter 或 Cmd+Enter 換行）。
     IMAGE_URLS: '返圖網址',
     NOTE: '備註',
+    // 工作室回覆：對應試算表「經驗分享」分頁 I 欄，讓工作室可以針對該則經驗分享公開回覆
+    STUDIO_REPLY: '工作室回覆',
     // 電子郵件地址：故意不設定 / 不使用，避免在網站上外洩暱稱使用者的信箱
   },
 

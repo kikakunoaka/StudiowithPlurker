@@ -313,7 +313,7 @@ button, input, select{ font-family: inherit; }
 .review-reply{
   margin-top: 12px;
   padding: 10px 14px;
-  background: var(--highlight-soft);
+  background: var(--surface);
   border-radius: var(--radius-md);
 }
 .review-reply-label{

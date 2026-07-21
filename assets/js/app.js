@@ -11,6 +11,7 @@
   const statusSel = document.getElementById('filterStatus');
   const sortSel = document.getElementById('filterSort');
   const changelogContentEl = document.getElementById('changelogContent');
+  const usageContentEl = document.getElementById('usageContent');
 
   let studios = [];
   const scoreMap = {}; // 工作室名稱 -> { avg, count }
@@ -116,6 +117,16 @@
     el.addEventListener('change', applyFilters);
   });
 
+  function renderUsage(lines) {
+    if (!lines || lines.length === 0) {
+      usageContentEl.innerHTML = '<p style="text-align:center; font-size:0.85rem; color:var(--ink-soft);">目前尚無使用說明。</p>';
+      return;
+    }
+    usageContentEl.innerHTML = lines
+      .map((line) => `<p class="changelog-text" style="margin-bottom:8px;">${formatTextWithLinks(line)}</p>`)
+      .join('');
+  }
+
   function renderChangelog(rows) {
     if (!rows || rows.length === 0) {
       changelogContentEl.innerHTML = '<p style="text-align:center; font-size:0.85rem; color:var(--ink-soft); margin:10px 0;">目前尚無更新紀錄。</p>';
@@ -140,10 +151,15 @@
   try {
     renderState('資料載入中...', false);
 
-    const [studioRows, reviewRows, changelogRows] = await Promise.all([
+    const [studioRows, reviewRows, changelogRows, usageLines] = await Promise.all([
       fetchSheetRows(CONFIG.SHEETS.STUDIOS),
       fetchSheetRows(CONFIG.SHEETS.REVIEWS).catch(() => []),
       fetchSheetRows(CONFIG.SHEETS.CHANGELOG).catch(() => []),
+      fetchSheetColumn(
+        CONFIG.SHEETS.USAGE,
+        CONFIG.USAGE_CONFIG.COLUMN,
+        CONFIG.USAGE_CONFIG.START_ROW
+      ).catch(() => []),
     ]);
     studios = studioRows;
 
@@ -169,6 +185,7 @@
 
     applyFilters();
     renderChangelog(changelogRows);
+    renderUsage(usageLines);
   } catch (err) {
     console.error(err);
     renderState(
@@ -176,5 +193,6 @@
       true
     );
     renderChangelog([]);
+    renderUsage([]);
   }
 })();

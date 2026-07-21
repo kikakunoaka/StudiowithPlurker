@@ -77,6 +77,33 @@ async function fetchSheetRows(sheetName) {
   });
 }
 
+/**
+ * 抓取指定分頁「某一欄」從某一列開始的內容（不依賴表頭欄位名稱）。
+ * 用於「使用說明」這種排版用分頁：同一分頁裡有好幾塊不同用途的文字，
+ * 分別放在不同欄位，沒辦法用一般「表頭 -> 物件」的方式抓取。
+ *
+ * @param {string} sheetName 分頁名稱
+ * @param {string} columnLetter 欄位字母，例如 'D'
+ * @param {number} startRow 從第幾列開始抓（從 1 算起，跟試算表列號一致）
+ * @returns {Promise<string[]>} 該欄位由上到下、去除空白列後的文字陣列
+ */
+async function fetchSheetColumn(sheetName, columnLetter, startRow = 1) {
+  const range = `${columnLetter}${startRow}:${columnLetter}`;
+  const url =
+    `https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}/gviz/tq` +
+    `?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}&range=${encodeURIComponent(range)}`;
+
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`無法讀取分頁「${sheetName}」的 ${columnLetter} 欄（HTTP ${res.status}）`);
+  }
+  const text = await res.text();
+  const table = parseCSV(text);
+  return table
+    .map((row) => (row[0] ?? '').trim())
+    .filter((cell) => cell !== '');
+}
+
 /** 把逗號 / 頓號 / 空白分隔的標籤字串拆成陣列 */
 function splitTags(str) {
   if (!str) return [];

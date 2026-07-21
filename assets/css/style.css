@@ -403,7 +403,7 @@ button, input, select{ font-family: inherit; }
 
 /* ===================== 使用說明 (Usage) ===================== */
 .usage-details{
-  background: linear-gradient(180deg, var(--highlight-soft) 0%, var(--surface) 90px);
+  background: linear-gradient(180deg, var(--accent-soft) 0%, var(--surface) 90px);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   margin: 0 auto 14px;
@@ -432,7 +432,7 @@ button, input, select{ font-family: inherit; }
 .usage-icon{
   width: 28px; height: 28px;
   border-radius: 50%;
-  background: var(--highlight);
+  background: var(--accent);
   color: #fff;
   font-size: .85rem;
   display: flex; align-items: center; justify-content: center;
@@ -455,7 +455,7 @@ button, input, select{ font-family: inherit; }
 }
 .usage-content::-webkit-scrollbar{ width: 6px; }
 .usage-content::-webkit-scrollbar-track{ background: transparent; }
-.usage-content::-webkit-scrollbar-thumb{ background: var(--highlight-soft); border-radius: 99px; }
+.usage-content::-webkit-scrollbar-thumb{ background: var(--accent-soft); border-radius: 99px; }
 
 .usage-line{
   display: flex;
@@ -469,8 +469,8 @@ button, input, select{ font-family: inherit; }
   width: 20px; height: 20px;
   margin-top: 1px;
   border-radius: 50%;
-  background: var(--highlight-soft);
-  color: var(--highlight);
+  background: var(--accent-soft);
+  color: var(--accent);
   font-family: var(--font-mono);
   font-weight: 700;
   font-size: .68rem;

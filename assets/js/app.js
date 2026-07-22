@@ -123,7 +123,12 @@
       return;
     }
     usageContentEl.innerHTML = lines
-      .map((line) => `<p class="changelog-text" style="margin-bottom:8px;">${formatTextWithLinks(line)}</p>`)
+      .map((line, idx) => `
+        <div class="usage-line">
+          <span class="usage-line-num">${idx + 1}</span>
+          <div class="usage-line-text">${formatTextWithLinks(line)}</div>
+        </div>
+      `)
       .join('');
   }
 
